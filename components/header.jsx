@@ -20,14 +20,20 @@ import Image from "next/image";
 import { checkUser } from "@/lib/checkUser";
 
 export default async function Header() {
-  await checkUser();
+  // Wrap checkUser in try-catch to handle authentication errors gracefully
+  try {
+    await checkUser();
+  } catch (error) {
+    // Silently handle authentication errors on public routes
+    console.log("Authentication check failed:", error.message);
+  }
 
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/">
           <Image
-            src={"/logo.png"}
+            src={"/logo2.png"}
             alt="Sensai Logo"
             width={200}
             height={60}
